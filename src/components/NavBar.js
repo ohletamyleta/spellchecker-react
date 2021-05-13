@@ -10,33 +10,44 @@ const link = {
   color: "white",
 };
 
-class Home extends React.Component {
+class NavBar extends React.Component {
   render() {
     return (
       <div>
         <NavLink
-          to="/login"
+          to="/"
           exact
           style={link}
           activeStyle={{
-            background: "darkblue",
+            background: "darkgreen",
           }}
         >
-          Login
+          Home
+        </NavLink>
+
+        <NavLink
+          to="/spells"
+          exact
+          style={link}
+          activeStyle={{
+            background: "darkgreen",
+          }}
+        >
+          Spells
         </NavLink>
         <NavLink
-          to="/signup"
+          to="/spellbook"
           exact
           style={link}
           activeStyle={{
-            background: "darkblue",
+            background: "darkgreen",
           }}
         >
-          Signup
+          Spellbook
         </NavLink>
       </div>
     );
   }
 }
 
-export default Home;
+export default NavBar;
