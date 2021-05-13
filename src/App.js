@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import Home from "./components/Home"
+import Login from './components/Login'
+import Signup from './components/Signup'
+
+
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +41,7 @@ class App extends Component {
       user: data.user
     })
   }
+  
 handleLogout = () => {
     this.setState({
     isLoggedIn: false,
@@ -48,9 +54,9 @@ render() {
       <div>
          <BrowserRouter>
           <Switch>
-            <Route exact path='/' component={}/>
-            <Route exact path='/login' component={}/>
-            <Route exact path='/signup' component={}/>
+            <Route exact path='/' component={Home}/>
+            <Route exact path='/login' component={Login}/>
+            <Route exact path='/signup' component={Signup}/>
           </Switch>
         </BrowserRouter>
       </div>
