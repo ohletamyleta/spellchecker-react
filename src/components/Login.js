@@ -1,102 +1,59 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React from "react";
+import { connect } from "react-redux";
+import { updateLoginForm } from "../actions/loginForm";
+import { login } from "../actions/currentUser";
 
-
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      email: "",
-      password: "",
-      errors: "",
-    };
-  }
-  handleChange = (event) => {
+const Login = ({ loginFormData, updateLoginForm, login }) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
+
+    const updatedLoginFormInfo = {
+      ...loginFormData,
       [name]: value,
-    });
+    };
+
+    updateLoginForm(updatedLoginFormInfo);
   };
-  
-  handleSubmit = (event) => {
-    event.preventDefault()
-    const {username, email, password} = this.state
-    let user = {
-      username: username,
-      email: email,
-      password: password
-    }
-    
-  axios.post('http://localhost:3001/login', {user}, {withCredentials: true})
-    .then(response => {
-      if (response.data.logged_in) {
-        this.props.handleLogin(response.data)
-        this.redirect()
-      } else {
-        this.setState({
-          errors: response.data.errors
-        })
-      }
-    })
-    .catch(error => console.log('api errors:', error))
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    login(loginFormData);
   };
-redirect = () => {
-    this.props.history.push('/')
-  }
-handleErrors = () => {
-    return (
-      <div>
-        <ul>
-        {this.state.errors.map(error => {
-        return <li key={error}>{error}</li>
-          })}
-        </ul>
-      </div>
-    )
-  };
-  handleSubmit = (event) => {
-    event.preventDefault()
-    
-    ;
-  };
-  render() {
-    const { username, email, password } = this.state
-    return(
-      <div>
-        <h1>Log In</h1>
-        <form onSubmit={this.handleSubmit}>
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="ui input">
           <input
-            placeholder="username"
-            type="text"
+            placeholder="user name"
+            value={loginFormData.username}
             name="username"
-            value={username}
-            onChange={this.handleChange}
-          />
-          <input
-            placeholder="email"
             type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
+            onChange={handleInputChange}
           />
           <input
             placeholder="password"
-            type="password"
+            value={loginFormData.password}
             name="password"
-            value={password}
-            onChange={this.handleChange}
+            type="text"
+            onChange={handleInputChange}
           />
-          <button placeholder="submit" type="submit">
-            Log In
+          <br />
+          <br />
+          <button className="button button-login" type="submit" value="Log In">
+            {" "}
+            Log in{" "}
           </button>
-          <div>
-            or <Link to="/signup">sign up</Link>
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
-export default Login;
+        </div>
+      </form>
+    </div>
+  );
+};
+const mapStateToProps = (state) => {
+  return {
+    loginFormData: state.loginForm,
+  };
+};
+
+export default connect(mapStateToProps, { updateLoginForm, login })(Login);
