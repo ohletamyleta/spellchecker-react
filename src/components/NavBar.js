@@ -10,10 +10,12 @@ const link = {
   color: "white",
 };
 
-class NavBar extends React.Component {
-  render() {
+const NavBar = () => {
+
     return (
-      <div>
+
+      <div classname="nav">
+
         <NavLink
           to="/"
           exact
@@ -48,6 +50,6 @@ class NavBar extends React.Component {
       </div>
     );
   }
-}
+
 
 export default NavBar;
