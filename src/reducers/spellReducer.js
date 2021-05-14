@@ -13,10 +13,14 @@ export default (state = initialState, action) => {
       };
 
     case "GET_ALL_SPELLS_SUCCESS":
-      return { ...state, spells: action.spells };
+      return { ...state,
+         spells: action.spells
+         };
 
     case "SET_CURRENT_USER":
-      return { ...state, currentUser: action.user };
+      return { ...state, 
+        currentUser: action.user,
+       };
 
     default:
       return state

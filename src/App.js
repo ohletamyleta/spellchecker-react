@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom'
 import Home from "./components/Home"
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Header from './components/Header'
 import NavBar from "./components/NavBar";
-
+import Spells from "./components/Spells";
+import Spellbook from "./components/Spellbook";
 
 class App extends Component {
   constructor(props) {
@@ -53,14 +54,19 @@ handleLogout = () => {
 render() {
     return (
       <div>
-         <BrowserRouter>
-         <Header />
-          <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/login' component={Login}/>
-            <Route exact path='/signup' component={Signup}/>
-          </Switch>
-        </BrowserRouter>
+        <Router>
+          <NavBar />
+          <Header />
+          <div className="App">
+            <Switch>
+              <Route path="/" component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/spells" component={Spells} />
+              <Route path="/spellbook" component={Spellbook} />
+            </Switch>
+          </div>
+        </Router>
       </div>
     );
   }
